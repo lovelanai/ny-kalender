@@ -4,14 +4,24 @@
     grid-template-rows: auto auto auto auto auto;
 }
 
-.blah{
+.days{
 
     width: 5rem;
     height: 5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: .2rem;
     background-color: lightseagreen;
     border: 2px solid slateblue;
+}
+
+.days p{
+    margin: 0;
+    color: rgb(161, 254, 80);
+}
+
+.days p:first-child{
+    color: rgb(34, 62, 176);
 }
