@@ -34,8 +34,9 @@ function addDaysToGrid() {
     // Lägger till 31st divar inuti calendarcontent-diven & ger dem innehåll & class
     for(d=0; d<31;d++) {
         var dayBoxes = document.createElement('div');
-        dayBoxes.innerHTML = (`<p>${dayNumber}</p>`) + (`<p>${dayNameSwedish[dayName]}</p>`);
+        dayBoxes.innerHTML = (`<p>${dayNameSwedish[dayName]}</p>`)+(`<p>${dayNumber}</p>`);
         dayBoxes.className = "days";
+        dayBoxes.id = "dayboxes";
         calendarContent.appendChild(dayBoxes);
     }
 

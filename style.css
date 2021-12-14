@@ -15,6 +15,7 @@
     margin: .2rem;
     background-color: lightseagreen;
     border: 2px solid slateblue;
+    cursor: pointer;
 }
 
 .days p{
@@ -25,3 +26,4 @@
 .days p:first-child{
     color: rgb(34, 62, 176);
 }
+
