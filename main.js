@@ -94,23 +94,25 @@ function addDaysToGrid() {
         calendarContent.appendChild(dayBoxes);
     }
 
-    /**Renderar första dagarna av nästkommande månad */
-    for (let nextDays = 1; nextDays <= amountOfDaysToDisplayFromNextMonth; nextDays++) {
+    // If (sista datum i månaden är en lördag (6) = Lägg endast ut FÖRSTA DAGEN I NÄSTA MÅNAD-div istället för ++)
 
-        if (indexOfLastDayOfCurrentMonth > 0){ //&& IndexOfFirstDaysOfNextMonth > 7) 
+    const testnumbers = 7-((IndexOflastDaysOfPreviousMonth + daysOfMonths)%7);
+    console.log(testnumbers)
+    /**Renderar första dagarna av nästkommande månad */
+    for (let nextDays = 1; nextDays <= testnumbers; nextDays++) {
+
+
             let dayBoxes = document.createElement('div');
             dayBoxes.className = "days";
-            dayBoxes.style.opacity = '50%'
-
+            dayBoxes.style.opacity = '50%';
 
             let displayDate = document.createElement('p');
             dayBoxes.append(displayDate);
             displayDate.innerText = `${nextDays}`;
 
-            calendarContent.appendChild(dayBoxes);
-        }
+            calendarContent.appendChild(dayBoxes);        }
+
     }
-}
 
 
 function displayPrevMonth() {
