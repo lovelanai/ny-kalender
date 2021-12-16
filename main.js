@@ -4,6 +4,8 @@ window.addEventListener('load', main);
 function main() {
     addDaysToGrid();
     displayCurrentMonth();
+
+
 }
 
 
@@ -26,18 +28,23 @@ const daysOfMonths = new Date(year, month + 1, 0).getDate();
 // T.ex. 1 december är på en "onsdag".
 const indexOfFirstDayOfCurrentMonth = new Date(year, month, 1, dayName).getDay();
 
+/** Hämtar ut indexnumret (veckodag) av sista dagen i nuvarande månaden */
+// 1 = Hämtar ut sista datumet i månaden för att kunna placera ut på rätt veckodag.
+// T.ex. 31 oktober är på en "söndag".
+const indexOfLastDayOfCurrentMonth = new Date(year, month + 1, 0, dayName).getDay();
+
 
 /** Hämtar ut sista dagen i förgående månad */
 const lastDaysOfPreviousMonth = new Date(year, month, 0).getDate();
 
-/**Får ut indexplatsen (Veckodagen) som den sista dagen i föregående månad har, söndag = 0*/
+/**Får ut indexplatsen (Veckodagen) som den sista dagen i föregående månad har, Måndag = 1*/
 const IndexOflastDaysOfPreviousMonth = new Date(year, month, 0).getDay();
 
 
 /** Hämtar ut första dagen i nästkommande månad */
 const firstDayOfNextMonth = new Date(year, month + 1, 1).getDate();
 
-/**Får ut indexplatsen (Veckodagen) som den första dagen i nästkommande månad har, söndag = 0*/
+/**Får ut indexplatsen (Veckodagen) som den första dagen i nästkommande månad har, Måndag = 1*/
 const IndexOfFirstDaysOfNextMonth = new Date(year, month + 1, 1).getDay();
 
 
@@ -46,7 +53,7 @@ const monthNameSwedish = ["Januari", "Februari", "Mars", "April", "Maj", "Juni",
 /** Översätter veckodagarna från siffror till Svenska */
 const dayNameSwedish = ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"];
 
-const amountOfDaysToDisplayFromNextMonth = 7 - IndexOfFirstDaysOfNextMonth +1;
+const amountOfDaysToDisplayFromNextMonth = 7 - IndexOfFirstDaysOfNextMonth + 1;
 
 /** Visar pågående månads namn i headern */
 function displayCurrentMonth() {
@@ -59,35 +66,50 @@ function addDaysToGrid() {
     // Hämtar ut div elementet från Html
     const calendarContent = document.getElementById('calendar-content');
 
-/**Renderar sista dagarna av förra månaden  */
-    for(let previousDays = IndexOflastDaysOfPreviousMonth; previousDays  > 0; previousDays--) {
+    /**Renderar sista dagarna av förra månaden  */
+    for (let previousDays = IndexOflastDaysOfPreviousMonth; previousDays > 0; previousDays--) {
         let dayBoxes = document.createElement('div');
-                                                     // Fråga david om varför denna ens fungerar
-        dayBoxes.innerHTML = (`<p>bajs</p>`) + (`<p>${lastDaysOfPreviousMonth - previousDays +1}</p>`); 
         dayBoxes.className = "days";
-        dayBoxes.id = "dayboxes";
+        dayBoxes.style.opacity = '50%';
+
+        let displayDate = document.createElement('p');
+        dayBoxes.append(displayDate);
+        displayDate.innerText = `${lastDaysOfPreviousMonth - previousDays + 1}`;
+
         calendarContent.appendChild(dayBoxes);
     }
 
-    
+
     // Lägger till divar ut efter antalet dagar i vald månad inuti calendar-content-diven & ger dem innehåll, id & class
-    for (let days = 1; days <=  daysOfMonths; days++) {
+    for (let days = 1; days <= daysOfMonths; days++) {
         let dayBoxes = document.createElement('div');
-        dayBoxes.innerHTML = (`<p>Veckodag</p>`) + (`<p>${days}</p>`);
         dayBoxes.className = "days";
-        dayBoxes.id = "dayboxes";
-        calendarContent.appendChild(dayBoxes);
-    }
-    
-    /**Renderar första dagarna av nästkommande månad */
-    for(let nextDays = 1; nextDays <= amountOfDaysToDisplayFromNextMonth; nextDays++){
-        let dayBoxes = document.createElement('div');
-        dayBoxes.innerHTML = (`<p>korv</p>`) + (`<p>${nextDays}</p>`);
-        dayBoxes.className = "days";
-        dayBoxes.id = "dayboxes";
+
+
+        let displayDate = document.createElement('p');
+        dayBoxes.append(displayDate);
+        displayDate.innerText = `${days}`;
+
+
         calendarContent.appendChild(dayBoxes);
     }
 
+    /**Renderar första dagarna av nästkommande månad */
+    for (let nextDays = 1; nextDays <= amountOfDaysToDisplayFromNextMonth; nextDays++) {
+
+        if (indexOfLastDayOfCurrentMonth > 0){ //&& IndexOfFirstDaysOfNextMonth > 7) 
+            let dayBoxes = document.createElement('div');
+            dayBoxes.className = "days";
+            dayBoxes.style.opacity = '50%'
+
+
+            let displayDate = document.createElement('p');
+            dayBoxes.append(displayDate);
+            displayDate.innerText = `${nextDays}`;
+
+            calendarContent.appendChild(dayBoxes);
+        }
+    }
 }
 
 

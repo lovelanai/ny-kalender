@@ -16,6 +16,7 @@
     background-color: lightseagreen;
     border: 2px solid slateblue;
     cursor: pointer;
+    font-size: 1.5rem;
 }
 
 .days p{
